@@ -32,7 +32,13 @@ def energy_summary():
     return jsonify({"status":"ok","last_bill": last}), 200
 # --- fim mocks ---
 
-STORE = {"bills": [], "alerts": [], "forecasts": []}
+STORE = {
+    "bills": [],
+    "alerts": [],
+    "forecasts": [],
+    "last_bill": None
+}
+
 
 @app.route('/health')
 def health():
