@@ -82,6 +82,22 @@ def cors(r):
     r.headers["Access-Control-Allow-Headers"] = "Content-Type"
     r.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
     return r
+# --- NEW ENDPOINT: /energy ---
+@app.route('/energy')
+def get_energy():
+    # se não houver conta ainda, retorna estado padrão
+    if not STORE["bills"]:
+        return jsonify({
+            "last_bill": None,
+            "status": "empty"
+        })
+    
+    # pegar a última conta
+    last = STORE["bills"][0]
+    return jsonify({
+        "last_bill": last,
+        "status": "ok"
+    })
 
 if __name__=="__main__":
     app.run(host="0.0.0.0",port=8000)
