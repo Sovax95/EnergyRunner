@@ -3,6 +3,34 @@ from flask import Flask, request, jsonify
 import uuid, datetime
 
 app = Flask(__name__)
+# --- Mock endpoints para o Master Dashboard (tempo de dev) ---
+@app.route('/robotics')
+def robotics_summary():
+    return jsonify({"status":"ok","summary":{"machines":2,"idle":2,"active":0,"alerts":0}}), 200
+
+@app.route('/finance')
+def finance_summary():
+    return jsonify({"status":"ok","summary":{"cashflow":"estável","balance":12500}}), 200
+
+@app.route('/security')
+def security_summary():
+    return jsonify({"status":"ok","summary":{"threats":0,"last_scan":"2025-12-02T00:00:00Z"}}), 200
+
+@app.route('/audit')
+def audit_summary():
+    return jsonify({"status":"ok","summary":{"reports":[]}}), 200
+
+@app.route('/health/summary')
+def health_summary():
+    return jsonify({"status":"ok","summary":{"fatigue_avg":4.6,"users":1}}), 200
+
+@app.route('/energy')
+def energy_summary():
+    # exemplo: devolve última fatura rápida
+    bills = STORE.get("bills", [])
+    last = bills[0] if bills else {}
+    return jsonify({"status":"ok","last_bill": last}), 200
+# --- fim mocks ---
 
 STORE = {"bills": [], "alerts": [], "forecasts": []}
 
