@@ -131,6 +131,13 @@ def post_bill():
 @app.route('/alerts')
 def get_alerts():
     return jsonify(STORE["alerts"])
+@app.route("/alerts")
+def alerts():
+    return jsonify([
+        {"severity": "HIGH", "message": "Consumo acima do normal"},
+        {"severity": "LOW",  "message": "Operação estável"},
+        {"severity": "MED",  "message": "Monitoramento ativo"}
+    ])
 
 @app.route('/forecasts')
 def forecasts():
